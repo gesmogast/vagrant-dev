@@ -1,0 +1,7 @@
+This script bundle automatically installs Magento2 (ver. 2.1.3) on Debian 8 system.
+Copy this script to /home/install, chmod +x installmagento.sh, run as superuser ./installmagento.sh
+
+Website URL: http://testmagento.org
+Admin URL: http://testmagento.org/admin
+Username: admin
+Password: ABCdefg123!
