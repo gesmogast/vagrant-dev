@@ -14,7 +14,24 @@ Vagrant.configure("2") do |config|
     config.vm.define "node#{i}" do |subconfig|
       subconfig.vm.box = BOX_IMAGE
       subconfig.vm.hostname = "node#{i}"               
-      subconfig.vm.network :private_network, ip: "10.0.0.#{i + 10}"
+      
+      # network configuration
+      subconfig.vm.network "public_network", bridge: "enp2s0", auto_config: false
+      # manual ip
+      subconfig.vm.provision "shell",
+        run: "always",
+        inline: "ifconfig enp0s8 192.168.100.#{i + 60} netmask 255.255.255.0 up"
+
+      # default router
+      subconfig.vm.provision "shell",
+        run: "always",
+        inline: "route add default gw 192.168.100.1"
+
+      # delete default gw on eth0
+      subconfig.vm.provision "shell",
+        run: "always",
+        inline: "eval `route -n | awk '{ if ($8 ==\"enp0s3\" && $2 != \"0.0.0.0\") print \"route del default gw \" $2; }'`"
+      
       subconfig.vm.provision "shell", path: "installdocker.sh"
       subconfig.vm.provision "shell", path: "addhosts.sh"
     end   

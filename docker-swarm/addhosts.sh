@@ -1,6 +1,6 @@
 #!/bin/bash
 cat >> /etc/hosts << EOF
-10.0.0.11 node1
-10.0.0.12 node2
-10.0.0.13 node3
+192.168.100.61 node1
+192.168.100.62 node2
+192.168.100.63 node3
 EOF
