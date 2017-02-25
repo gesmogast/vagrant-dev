@@ -4,7 +4,7 @@
 # Every Vagrant development environment requires a box. You can search for 
 # boxes at https://atlas.hashicorp.com/search. 
 BOX_IMAGE = "bento/ubuntu-16.04" 
-NODE_COUNT = 4
+NODE_COUNT = 3
 
 Vagrant.configure("2") do |config|
   config.vm.provider "virtualbox" do |v|
@@ -16,6 +16,7 @@ Vagrant.configure("2") do |config|
       subconfig.vm.hostname = "node#{i}"               
       subconfig.vm.network :private_network, ip: "10.0.0.#{i + 10}"
       subconfig.vm.provision "shell", path: "installdocker.sh"
+      subconfig.vm.provision "shell", path: "addhosts.sh"
     end   
   end   
 
