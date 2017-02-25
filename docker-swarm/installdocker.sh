@@ -15,6 +15,10 @@ add-apt-repository \
        main"
 # Install docker
 apt-get update && apt-get -y install docker-engine glusterfs-server
+# Install docker-compose
+curl -L "https://github.com/docker/compose/releases/download/1.11.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# Allow execution to docker-compose
+chmod +x /usr/local/bin/docker-compose
 # Start glusterfs server
 service glusterfs-server start
 # Create directories to store data
